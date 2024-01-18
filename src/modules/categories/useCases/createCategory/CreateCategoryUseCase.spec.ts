@@ -6,7 +6,7 @@ import { ICategoriesRepository } from '@modules/categories/domains/repositories/
 import { CreateCategoryUseCase } from './CreateCategoryUseCase'
 import { AppError } from '@shared/errors/AppError'
 
-const category_payload = { name: 'teste' }
+const category_payload = { name: 'category_name' }
 
 let createCategoryUseCase: CreateCategoryUseCase
 let categoryRepository: ICategoriesRepository
@@ -22,7 +22,7 @@ describe('CreateCategoryUseCase', () => {
     expect(category).toHaveProperty('id')
   })
 
-  it('should not be possible to create a new category with the same name', async () => {
+  it('should not be possible to create a category with an already existing name', async () => {
     await createCategoryUseCase.execute(category_payload)
 
     await expect(createCategoryUseCase.execute(category_payload)).rejects.toEqual(

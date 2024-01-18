@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it } from 'vitest'
+import { beforeAll, beforeEach, describe, expect, it } from 'vitest'
 import { ZodError } from 'zod'
 
 import { CategoriesRepositoryInMemory } from '@modules/categories/infra/fakes/CategoriesRepositoryInMemory'
@@ -13,7 +13,7 @@ let categoryRepository: ICategoriesRepository
 let category_id: string
 
 describe('ShowCategoryUseCase', () => {
-  beforeEach(async () => {
+  beforeAll(async () => {
     categoryRepository = new CategoriesRepositoryInMemory()
     createCategoryUseCase = new CreateCategoryUseCase(categoryRepository)
     showCategoryUseCase = new ShowCategoryUseCase(categoryRepository)

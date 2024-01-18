@@ -1,0 +1,18 @@
+{
+  "name": "product-management",
+  "version": "1.0.0",
+  "main": "src/infra/server.ts",
+  "author": "Dyego Soriano <4140145+dyegosoriano@users.noreply.github.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsup src",
+    "dev:server": "NODE_ENV=development tsx watch --ignore ./node_modules src/infra/server.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.5",
+    "ts-node": "^10.9.2",
+    "tsup": "^8.0.1",
+    "tsx": "^4.7.0",
+    "typescript": "^5.3.3"
+  }
+}

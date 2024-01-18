@@ -6,9 +6,16 @@
   "license": "MIT",
   "scripts": {
     "build": "tsup src",
+    "db:deploy": "yarn prisma migrate deploy",
+    "db:seed": "tsx src/infra/prisma/seed.ts",
+    "db:migrate": "yarn prisma migrate dev",
+    "db:generate": "yarn prisma generate",
+    "db:client": "yarn prisma studio",
+    "db:pull": "yarn prisma db pull",
     "dev:server": "NODE_ENV=development tsx watch --ignore ./node_modules src/infra/server.ts"
   },
   "dependencies": {
+    "@prisma/client": "^5.8.1",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "express-async-errors": "^3.1.1",
@@ -18,6 +25,7 @@
   "devDependencies": {
     "@types/express": "^4.17.21",
     "@types/node": "^20.11.5",
+    "prisma": "^5.8.1",
     "ts-node": "^10.9.2",
     "tsup": "^8.0.1",
     "tsx": "^4.7.0",

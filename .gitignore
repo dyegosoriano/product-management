@@ -3,3 +3,5 @@ coverage
 dist/*
 *.md
 .env
+
+yarn-error.log

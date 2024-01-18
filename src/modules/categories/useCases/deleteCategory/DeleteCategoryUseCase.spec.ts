@@ -1,12 +1,12 @@
-import { beforeAll, beforeEach, describe, expect, it } from 'vitest'
+import { beforeAll, describe, expect, it } from 'vitest'
 import { ZodError } from 'zod'
 
 import { CategoriesRepositoryInMemory } from '@modules/categories/infra/fakes/CategoriesRepositoryInMemory'
 import { ICategoriesRepository } from '@modules/categories/domains/repositories/ICategoriesRepository'
 import { CreateCategoryUseCase } from '../createCategory/CreateCategoryUseCase'
+import { ShowCategoryUseCase } from '../showCategory/ShowCategoryUseCase'
 import { DeleteCategoryUseCase } from './DeleteCategoryUseCase'
 import { AppError } from '@shared/errors/AppError'
-import { ShowCategoryUseCase } from '../showCategory/ShowCategoryUseCase'
 
 let createCategoryUseCase: CreateCategoryUseCase
 let deleteCategoryUseCase: DeleteCategoryUseCase

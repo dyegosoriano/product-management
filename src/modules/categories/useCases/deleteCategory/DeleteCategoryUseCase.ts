@@ -1,6 +1,10 @@
-import { ICategoriesRepository } from '@modules/categories/domains/repositories/ICategoriesRepository'
+import { z } from 'zod'
 
-interface IRequest {}
+import { ICategoriesRepository } from '@modules/categories/domains/repositories/ICategoriesRepository'
+import { errors } from '@shared/errors/constants'
+import { AppError } from '@shared/errors/AppError'
+
+const validationId = z.object({ id: z.string().uuid(errors.id) })
 
 interface IResponse {
   message: string
@@ -9,7 +13,14 @@ interface IResponse {
 export class DeleteCategoryUseCase {
   constructor(private readonly categoryRepository: ICategoriesRepository) {}
 
-  async execute(data: IRequest): Promise<IResponse> {
+  async execute(id: string): Promise<IResponse> {
+    const { id: category_id } = validationId.parse({ id })
+
+    const category = await this.categoryRepository.show(category_id)
+    if (!category) throw new AppError('Category not found')
+
+    await this.categoryRepository.delete(category_id)
+
     return { message: 'Category removed successfully!' }
   }
 }

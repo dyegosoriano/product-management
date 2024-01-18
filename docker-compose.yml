@@ -1,0 +1,45 @@
+version: '3.7'
+
+services:
+  api:
+    container_name: product-management-api
+    command: yarn dev:server
+    restart: unless-stopped
+    build: .
+    ports:
+      - ${PORT}:${PORT}
+    environment:
+      - DATABASE_URL=product-management-database
+    volumes:
+      - .:/usr/app
+    networks:
+      - product-managementnetwork
+    env_file:
+      - .env
+    depends_on:
+      - database
+
+  database:
+    container_name: product-management-database
+    image: postgres:15.3-alpine
+    restart: unless-stopped
+    ports:
+      - ${DB_PORT}:5432
+    environment:
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_USER=${DB_USERNAME}
+      - POSTGRES_DB=${DB_NAME}
+    volumes:
+      - product-management-volume:/data/postgres
+    env_file:
+      - .env
+    networks:
+      - product-managementnetwork
+
+volumes:
+  product-management-volume:
+    driver: local
+
+networks:
+  product-managementnetwork:
+    driver: bridge

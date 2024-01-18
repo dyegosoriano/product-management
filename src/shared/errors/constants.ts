@@ -1,6 +1,6 @@
 export const errors = {
   name_required: { required_error: 'Required name.' },
-  name_max: 'Name must be at most 100 characters',
+  name_max: 'Name must be at most 30 characters',
   name_min: 'Name must be at least 3 characters',
 
   description_required: { required_error: 'Required description.' },

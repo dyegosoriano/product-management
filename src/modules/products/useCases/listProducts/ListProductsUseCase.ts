@@ -1,11 +1,14 @@
+import { inject, injectable } from 'tsyringe'
+
 import { IProductsRepository } from '@modules/products/domains/repositories/IProductsRepository'
 import { validationListProducts } from '@modules/products/validations/validationProducts'
 import { IFindAllProductsDTO } from '@modules/products/domains/DTOs/productsDTOs'
 import { ICategory } from '@modules/categories/domains/models/ICategory'
 import { IResultList } from '@core/types/utils/IResultList'
 
+@injectable()
 export class ListProductsUseCase {
-  constructor(private readonly productsRepository: IProductsRepository) {}
+  constructor(@inject('ProductsRepository') private readonly productsRepository: IProductsRepository) {}
 
   async execute(data: IFindAllProductsDTO): Promise<IResultList<ICategory>> {
     const valid_data = validationListProducts.parse(data)

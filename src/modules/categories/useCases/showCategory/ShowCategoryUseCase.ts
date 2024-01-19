@@ -1,3 +1,4 @@
+import { inject, injectable } from 'tsyringe'
 import { z } from 'zod'
 
 import { ICategoriesRepository } from '@modules/categories/domains/repositories/ICategoriesRepository'
@@ -7,8 +8,9 @@ import { errors } from '@shared/errors/constants'
 
 const validationId = z.object({ id: z.string().uuid(errors.id) })
 
+@injectable()
 export class ShowCategoryUseCase {
-  constructor(private readonly categoryRepository: ICategoriesRepository) {}
+  constructor(@inject('CategoriesRepository') private readonly categoryRepository: ICategoriesRepository) {}
 
   async execute(id: string): Promise<ICategory> {
     const { id: category_id } = validationId.parse({ id })

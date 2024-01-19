@@ -1,3 +1,4 @@
+import { inject, injectable } from 'tsyringe'
 import { z } from 'zod'
 
 import { ICategoriesRepository } from '@modules/categories/domains/repositories/ICategoriesRepository'
@@ -10,8 +11,9 @@ interface IResponse {
   message: string
 }
 
+@injectable()
 export class DeleteCategoryUseCase {
-  constructor(private readonly categoryRepository: ICategoriesRepository) {}
+  constructor(@inject('CategoriesRepository') private readonly categoryRepository: ICategoriesRepository) {}
 
   async execute(id: string): Promise<IResponse> {
     const { id: category_id } = validationId.parse({ id })

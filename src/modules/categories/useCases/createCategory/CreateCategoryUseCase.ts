@@ -1,11 +1,14 @@
+import { inject, injectable } from 'tsyringe'
+
 import { ICategoriesRepository } from '@modules/categories/domains/repositories/ICategoriesRepository'
 import { validationCreateCategory } from '@modules/categories/validations/validationCategories'
 import { ICreateCategoryDTO } from '@modules/categories/domains/DTOs/categoriesDTOs'
 import { ICategory } from '@modules/categories/domains/models/ICategory'
 import { AppError } from '@shared/errors/AppError'
 
+@injectable()
 export class CreateCategoryUseCase {
-  constructor(private readonly categoryRepository: ICategoriesRepository) {}
+  constructor(@inject('CategoriesRepository') private readonly categoryRepository: ICategoriesRepository) {}
 
   async execute(data: ICreateCategoryDTO): Promise<ICategory> {
     const valid_data = validationCreateCategory.parse(data)

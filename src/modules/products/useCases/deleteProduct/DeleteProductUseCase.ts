@@ -1,3 +1,4 @@
+import { inject, injectable } from 'tsyringe'
 import { z } from 'zod'
 
 import { IProductsRepository } from '@modules/products/domains/repositories/IProductsRepository'
@@ -10,8 +11,9 @@ interface IResponse {
   message: string
 }
 
+@injectable()
 export class DeleteProductUseCase {
-  constructor(private readonly productsRepository: IProductsRepository) {}
+  constructor(@inject('ProductsRepository') private readonly productsRepository: IProductsRepository) {}
 
   async execute(id: string): Promise<IResponse> {
     const { id: product_id } = validationId.parse({ id })

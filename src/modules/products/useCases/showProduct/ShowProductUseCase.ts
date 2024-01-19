@@ -1,3 +1,4 @@
+import { inject, injectable } from 'tsyringe'
 import { z } from 'zod'
 
 import { IProductsRepository } from '@modules/products/domains/repositories/IProductsRepository'
@@ -7,8 +8,9 @@ import { AppError } from '@shared/errors/AppError'
 
 const validationId = z.object({ id: z.string().uuid(errors.id) })
 
+@injectable()
 export class ShowProductUseCase {
-  constructor(private readonly productsRepository: IProductsRepository) {}
+  constructor(@inject('ProductsRepository') private readonly productsRepository: IProductsRepository) {}
 
   async execute(id: string): Promise<IProduct> {
     const { id: product_id } = validationId.parse({ id })

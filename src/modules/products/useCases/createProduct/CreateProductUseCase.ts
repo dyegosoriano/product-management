@@ -1,3 +1,5 @@
+import { inject, injectable } from 'tsyringe'
+
 import { ICategoriesRepository } from '@modules/categories/domains/repositories/ICategoriesRepository'
 import { IProductsRepository } from '@modules/products/domains/repositories/IProductsRepository'
 import { validationCreateProduct } from '@modules/products/validations/validationProducts'
@@ -5,10 +7,11 @@ import { ICreateProductDTO } from '@modules/products/domains/DTOs/productsDTOs'
 import { IProduct } from '@modules/products/domains/models/IProduct'
 import { AppError } from '@shared/errors/AppError'
 
+@injectable()
 export class CreateProductUseCase {
   constructor(
-    private readonly categoryRepository: ICategoriesRepository,
-    private readonly productsRepository: IProductsRepository
+    @inject('CategoriesRepository') private readonly categoryRepository: ICategoriesRepository,
+    @inject('ProductsRepository') private readonly productsRepository: IProductsRepository
   ) {}
 
   async execute(data: ICreateProductDTO): Promise<IProduct> {

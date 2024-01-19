@@ -1,3 +1,4 @@
+import { inject, injectable } from 'tsyringe'
 import { z } from 'zod'
 
 import { ICategoriesRepository } from '@modules/categories/domains/repositories/ICategoriesRepository'
@@ -15,10 +16,11 @@ interface IRequest {
   id: string
 }
 
+@injectable()
 export class UpdateProductUseCase {
   constructor(
-    private readonly categoryRepository: ICategoriesRepository,
-    private readonly productsRepository: IProductsRepository
+    @inject('CategoriesRepository') private readonly categoryRepository: ICategoriesRepository,
+    @inject('ProductsRepository') private readonly productsRepository: IProductsRepository
   ) {}
 
   async execute({ data, id }: IRequest): Promise<IProduct> {

@@ -36,12 +36,20 @@ export class ProductsRepositoryInMemory implements IProductsRepository {
     this.repository = this.repository.filter(product => product.id !== id)
   }
 
-  async findAll({ page_size, page, name }: productsDTOs.IFindAllProductsDTO): Promise<IFindAllResults<IProduct>> {
+  async findAll({
+    category_id,
+    page_size,
+    page,
+    name
+  }: productsDTOs.IFindAllProductsDTO): Promise<IFindAllResults<IProduct>> {
     let repoClone = this.repository
+    let repoPaginate = repoClone
 
     if (name) repoClone = repoClone.filter(item => item.name.toUpperCase().includes(name.toUpperCase()))
-    if (page_size && page) repoClone = paginateArray({ array: repoClone, page, page_size })
+    if (category_id) repoClone = repoClone.filter(item => item.category_id === category_id)
 
-    return { total: repoClone.length + 1, results: repoClone }
+    if (page_size && page) repoPaginate = paginateArray({ array: repoClone, page, page_size })
+
+    return { total: repoClone.length, results: repoPaginate }
   }
 }

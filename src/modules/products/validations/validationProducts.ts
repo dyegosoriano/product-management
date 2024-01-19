@@ -5,7 +5,7 @@ import { errors } from '@shared/errors/constants'
 export const validationCreateProduct = z.object({
   price: z.number(errors.price_required).int(errors.price_int).positive(errors.price_positive),
   description: z.string().max(600, errors.description_max).min(3, errors.description_min),
-  name: z.string().max(100, errors.name_max).min(3, errors.name_min),
+  name: z.string().max(30, errors.name_max).min(3, errors.name_min),
   category_id: z.string().uuid(errors.id)
 })
 

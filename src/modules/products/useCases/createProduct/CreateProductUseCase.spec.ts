@@ -35,6 +35,16 @@ describe('CreateProductUseCase', () => {
     category_id = id
   })
 
+  it('must be possible to create a product with all the characteristics stated.', async () => {
+    const product = await createProductUseCase.execute({ ...product_payload, category_id })
+
+    expect(product.description).toEqual(product_payload.description)
+    expect(product.price).toEqual(product_payload.price)
+    expect(product.name).toEqual(product_payload.name)
+    expect(product.category_id).toEqual(category_id)
+    expect(product).toHaveProperty('id')
+  })
+
   it('the category must contain a minimum of 3 letters and a maximum of 30', async () => {
     await expect(createProductUseCase.execute({ ...product_payload, category_id, name: '01' })).rejects.toThrow(
       ZodError
@@ -62,15 +72,5 @@ describe('CreateProductUseCase', () => {
     await expect(createProductUseCase.execute({ ...product_payload, category_id })).rejects.toEqual(
       new AppError('Product already exists')
     )
-  })
-
-  it('must be possible to create a product with all the characteristics stated.', async () => {
-    const product = await createProductUseCase.execute({ ...product_payload, category_id })
-
-    expect(product.category_id).toEqual(product_payload.category_id)
-    expect(product.description).toEqual(product_payload.description)
-    expect(product.price).toEqual(product_payload.price)
-    expect(product.name).toEqual(product_payload.name)
-    expect(product).toHaveProperty('id')
   })
 })

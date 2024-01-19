@@ -15,8 +15,8 @@ const categories = [
   { name: 'clothing' },
   { name: 'foods' },
   { name: 'books' },
-  { name: 'toys' },
-  { name: 'pets' }
+  { name: 'boots' },
+  { name: 'toys' }
 ]
 
 let createCategoryUseCase: CreateCategoryUseCase
@@ -40,10 +40,10 @@ describe('ListCategoriesUseCase', () => {
     expect(response.results.length).toEqual(5)
   })
 
-  it('should return a list of categories that have the letters "oo" in their name', async () => {
-    const response = await listCategoriesUseCase.execute({ page_size: 2, page: 1, name: 'Oo' })
+  it('should return a list of categories that have the letters "bOo" in their name', async () => {
+    const response = await listCategoriesUseCase.execute({ page_size: 2, page: 1, name: 'bOo' })
 
-    expect(response.results[0].name).toEqual('foods')
+    expect(response.results[0].name).toEqual('books')
     expect(response.results.length).toEqual(2)
   })
 

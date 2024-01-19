@@ -5,6 +5,7 @@ import 'dotenv/config'
 import express, { Application } from 'express'
 import helmet from 'helmet'
 
+import '@shared/container'
 import { expressSetupRoutes } from './utils/expressSetupRoutes'
 import errorHandling from './middlewares/errorHandling'
 

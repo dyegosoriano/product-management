@@ -31,7 +31,7 @@ describe('ShowProductUseCase', () => {
     showProductUseCase = new ShowProductUseCase(productRepository)
 
     const { id: category_id } = await createCategoryUseCase.execute(category_payload)
-    await createProductUseCase.execute({ ...product_payload, category_id })
+    product = await createProductUseCase.execute({ ...product_payload, category_id })
   })
 
   it('should not be possible to accept an invalid uuid.', async () => {
@@ -39,7 +39,9 @@ describe('ShowProductUseCase', () => {
   })
 
   it('should return an error when not finding a product.', async () => {
-    await expect(showProductUseCase.execute('invalid-uuid')).rejects.toEqual(new AppError('Product not found!', 404))
+    await expect(showProductUseCase.execute('cc9c8edf-d252-453f-b362-ae75ce1dc9cb')).rejects.toEqual(
+      new AppError('Product not found!', 404)
+    )
   })
 
   it('must return a product.', async () => {

@@ -3,31 +3,28 @@ import { ZodError } from 'zod'
 
 import { CategoriesRepositoryInMemory } from '@modules/categories/infra/fakes/CategoriesRepositoryInMemory'
 import { ICategoriesRepository } from '@modules/categories/domains/repositories/ICategoriesRepository'
-import { CreateCategoryUseCase } from '../createCategory/CreateCategoryUseCase'
+import { ICategory } from '@modules/categories/domains/models/ICategory'
 import { UpdateCategoryUseCase } from './UpdateCategoryUseCase'
 import { AppError } from '@shared/errors/AppError'
 
-let createCategoryUseCase: CreateCategoryUseCase
 let updateCategoryUseCase: UpdateCategoryUseCase
 let categoryRepository: ICategoriesRepository
-let category_id: string
+let category: ICategory
 
 describe('UpdateCategoryUseCase', () => {
   beforeEach(async () => {
     categoryRepository = new CategoriesRepositoryInMemory()
-    createCategoryUseCase = new CreateCategoryUseCase(categoryRepository)
+
     updateCategoryUseCase = new UpdateCategoryUseCase(categoryRepository)
 
-    const { id } = await createCategoryUseCase.execute({ name: 'category_name' })
-
-    category_id = id
+    category = await categoryRepository.create({ name: 'category_name' })
   })
 
   it('the category must contain a minimum of 3 letters and a maximum of 30', async () => {
-    await expect(updateCategoryUseCase.execute({ id: category_id, data: { name: '01' } })).rejects.toThrow(ZodError)
+    await expect(updateCategoryUseCase.execute({ id: category.id, data: { name: '01' } })).rejects.toThrow(ZodError)
 
     await expect(
-      updateCategoryUseCase.execute({ id: category_id, data: { name: '0123456789 ABCDEFGHIJKLMNOPQRSTUVZWYZ' } })
+      updateCategoryUseCase.execute({ id: category.id, data: { name: '0123456789 ABCDEFGHIJKLMNOPQRSTUVZWYZ' } })
     ).rejects.toThrow(ZodError)
   })
 
@@ -43,17 +40,17 @@ describe('UpdateCategoryUseCase', () => {
         id: 'cc9c8edf-d252-453f-b362-ae75ce1dc9cb',
         data: { name: 'category_inexistent' }
       })
-    ).rejects.toEqual(new AppError('Category not found'))
+    ).rejects.toEqual(new AppError('Category not found!', 404))
   })
 
   it('should not be possible to update a category with an existing name', async () => {
-    await expect(updateCategoryUseCase.execute({ id: category_id, data: { name: 'category_name' } })).rejects.toEqual(
-      new AppError('Category already exists')
+    await expect(updateCategoryUseCase.execute({ id: category.id, data: { name: 'category_name' } })).rejects.toEqual(
+      new AppError('Category already exists!', 401)
     )
   })
 
   it('should be possible to update a category', async () => {
-    const category = await updateCategoryUseCase.execute({ id: category_id, data: { name: 'new_category_name' } })
-    expect(category.name).toEqual('new_category_name')
+    const response = await updateCategoryUseCase.execute({ id: category.id, data: { name: 'new_category_name' } })
+    expect(response.name).toEqual('new_category_name')
   })
 })

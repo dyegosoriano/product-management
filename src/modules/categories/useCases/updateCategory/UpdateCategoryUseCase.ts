@@ -22,10 +22,10 @@ export class UpdateCategoryUseCase {
     const { id: category_id } = validationId.parse({ id })
 
     const category = await this.categoryRepository.show(category_id)
-    if (!category) throw new AppError('Category not found')
+    if (!category) throw new AppError('Category not found!', 404)
 
     const categoryExist = await this.categoryRepository.findAll({ name: valid_data.name, page_size: 1, page: 1 })
-    if (categoryExist.results.length > 0) throw new AppError('Category already exists')
+    if (categoryExist.results.length > 0) throw new AppError('Category already exists!', 401)
 
     return await this.categoryRepository.update(category_id, valid_data)
   }

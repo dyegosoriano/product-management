@@ -17,7 +17,7 @@ export class DeleteCategoryUseCase {
     const { id: category_id } = validationId.parse({ id })
 
     const category = await this.categoryRepository.show(category_id)
-    if (!category) throw new AppError('Category not found')
+    if (!category) throw new AppError('Category not found!', 404)
 
     await this.categoryRepository.delete(category_id)
 

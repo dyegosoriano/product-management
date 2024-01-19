@@ -11,7 +11,7 @@ export class CreateCategoryUseCase {
     const valid_data = validationCreateCategory.parse(data)
 
     const categoryExist = await this.categoryRepository.findAll({ name: valid_data.name, page_size: 1, page: 1 })
-    if (categoryExist.results.length > 0) throw new AppError('Category already exists')
+    if (categoryExist.results.length > 0) throw new AppError('Category already exists!', 401)
 
     return await this.categoryRepository.create(valid_data)
   }

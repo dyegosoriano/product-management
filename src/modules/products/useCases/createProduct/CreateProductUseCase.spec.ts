@@ -1,7 +1,6 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 
 import { CategoriesRepositoryInMemory } from '@modules/categories/infra/fakes/CategoriesRepositoryInMemory'
-import { CreateCategoryUseCase } from '@modules/categories/useCases/createCategory/CreateCategoryUseCase'
 import { ICategoriesRepository } from '@modules/categories/domains/repositories/ICategoriesRepository'
 import { ProductsRepositoryInMemory } from '@modules/products/infra/fakes/ProductsRepositoryInMemory'
 import { IProductsRepository } from '@modules/products/domains/repositories/IProductsRepository'
@@ -17,7 +16,6 @@ const product_payload = {
   price: 10
 }
 
-let createCategoryUseCase: CreateCategoryUseCase
 let createProductUseCase: CreateProductUseCase
 let categoryRepository: ICategoriesRepository
 let productRepository: IProductsRepository
@@ -29,10 +27,9 @@ describe('CreateProductUseCase', () => {
     productRepository = new ProductsRepositoryInMemory()
 
     createProductUseCase = new CreateProductUseCase(categoryRepository, productRepository)
-    createCategoryUseCase = new CreateCategoryUseCase(categoryRepository)
 
-    const { id } = await createCategoryUseCase.execute(category_payload)
-    category_id = id
+    const category = await categoryRepository.create(category_payload)
+    category_id = category.id
   })
 
   it('must be possible to create a product with all the characteristics stated.', async () => {

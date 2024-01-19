@@ -26,7 +26,7 @@ describe('CreateCategoryUseCase', () => {
     await createCategoryUseCase.execute(category_payload)
 
     await expect(createCategoryUseCase.execute(category_payload)).rejects.toEqual(
-      new AppError('Category already exists')
+      new AppError('Category already exists!', 401)
     )
   })
 

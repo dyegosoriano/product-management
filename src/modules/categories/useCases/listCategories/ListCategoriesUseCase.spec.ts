@@ -3,7 +3,6 @@ import { beforeAll, describe, expect, it } from 'vitest'
 
 import { CategoriesRepositoryInMemory } from '@modules/categories/infra/fakes/CategoriesRepositoryInMemory'
 import { ICategoriesRepository } from '@modules/categories/domains/repositories/ICategoriesRepository'
-import { CreateCategoryUseCase } from '../createCategory/CreateCategoryUseCase'
 import { ListCategoriesUseCase } from './ListCategoriesUseCase'
 
 const categories = [
@@ -19,7 +18,6 @@ const categories = [
   { name: 'toys' }
 ]
 
-let createCategoryUseCase: CreateCategoryUseCase
 let listCategoriesUseCase: ListCategoriesUseCase
 let categoryRepository: ICategoriesRepository
 
@@ -27,11 +25,10 @@ describe('ListCategoriesUseCase', () => {
   beforeAll(async () => {
     categoryRepository = new CategoriesRepositoryInMemory()
 
-    createCategoryUseCase = new CreateCategoryUseCase(categoryRepository)
     listCategoriesUseCase = new ListCategoriesUseCase(categoryRepository)
 
     for await (const category of categories) {
-      await createCategoryUseCase.execute(category)
+      await categoryRepository.create(category)
     }
   })
 

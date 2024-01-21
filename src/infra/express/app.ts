@@ -3,10 +3,12 @@ import 'express-async-errors'
 import 'dotenv/config'
 
 import express, { Application } from 'express'
+import swaggerUI from 'swagger-ui-express'
 import helmet from 'helmet'
 
 import '@shared/container'
 import { expressSetupRoutes } from './utils/expressSetupRoutes'
+import swaggerFile from '../swagger/swagger_output.json'
 import errorHandling from './middlewares/errorHandling'
 
 export class AppServer {
@@ -42,6 +44,7 @@ export class AppServer {
   }
 
   private routes() {
+    this.server.use('/doc', swaggerUI.serve, swaggerUI.setup(swaggerFile, { explorer: true }))
     expressSetupRoutes(this.server)
   }
 }

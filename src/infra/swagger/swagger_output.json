@@ -1,0 +1,763 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Product Management",
+    "description": "",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/categories": {
+      "post": {
+        "tags": [
+          "Categorias"
+        ],
+        "description": "Rota para criação da categoria.",
+        "parameters": [
+          {
+            "name": "obj",
+            "schema": {
+              "$ref": "#/components/schemas/CreateCategory"
+            },
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetCategory"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetCategory"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Categorias"
+        ],
+        "description": "Rota para listagem das categorias.",
+        "parameters": [
+          {
+            "name": "page_size",
+            "in": "path",
+            "description": "Tamanho da página.",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "page",
+            "in": "path",
+            "description": "Página a ser exibida.",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "name",
+            "in": "path",
+            "description": "Busca pelo nome da categoria.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListCategories"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListCategories"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/categories/{id}": {
+      "patch": {
+        "tags": [
+          "Categorias"
+        ],
+        "description": "Rota para atualização da categoria.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "obj",
+            "schema": {
+              "$ref": "#/components/schemas/CreateCategory"
+            },
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetCategory"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetCategory"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Categorias"
+        ],
+        "description": "Rota para exibição da categoria.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetCategory"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetCategory"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Categorias"
+        ],
+        "description": "Rota para remoção da categoria.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Category removed successfully!"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ],
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Category removed successfully!"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ],
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products": {
+      "post": {
+        "tags": [
+          "Produtos"
+        ],
+        "description": "Rota para criação do produto.",
+        "parameters": [
+          {
+            "name": "obj",
+            "schema": {
+              "$ref": "#/components/schemas/CreateProduct"
+            },
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetProduct"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetProduct"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Produtos"
+        ],
+        "description": "Rota para listagem dos produtos.",
+        "parameters": [
+          {
+            "name": "category_id",
+            "in": "path",
+            "description": "Busca pelo id da categoria.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "name",
+            "in": "path",
+            "description": "Busca pelo nome do produto.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "path",
+            "description": "Tamanho da página.",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "page",
+            "in": "path",
+            "description": "Página a ser exibida.",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListProducts"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListProducts"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products/{id}": {
+      "patch": {
+        "tags": [
+          "Produtos"
+        ],
+        "description": "Rota para atualização do produto.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "obj",
+            "schema": {
+              "$ref": "#/components/schemas/CreateProduct"
+            },
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetProduct"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetProduct"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Produtos"
+        ],
+        "description": "Rota para exibição do produto.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetProduct"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetProduct"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Produtos"
+        ],
+        "description": "Rota para remoção do produto.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Product removed successfully!"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ],
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Product removed successfully!"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ],
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products/installment": {
+      "post": {
+        "tags": [
+          "Produtos"
+        ],
+        "description": "Rota para exibição do produto com calculo das parcelas.",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "product_id": {
+                  "type": "string",
+                  "example": "a73c7f56-4b0a-46d8-9b34-c4d2fac85c39"
+                },
+                "fees": {
+                  "type": "number",
+                  "example": 10
+                }
+              },
+              "required": [
+                "product_id",
+                "fees"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetProductInstallment"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetProductInstallment"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ListProducts": {
+        "type": "object",
+        "properties": {
+          "total_pages": {
+            "type": "number",
+            "example": 1
+          },
+          "total": {
+            "type": "number",
+            "example": 3
+          },
+          "page_size": {
+            "type": "number",
+            "example": 5
+          },
+          "page": {
+            "type": "number",
+            "example": 1
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "example": "d0ffaede-3b45-4b00-9514-da94ea11deab"
+                },
+                "name": {
+                  "type": "string",
+                  "example": "produto 1705859777"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "Descrição de teste."
+                },
+                "price": {
+                  "type": "number",
+                  "example": 100000
+                },
+                "category_id": {
+                  "type": "string",
+                  "example": "e8488168-89b9-4d60-a4dd-bfaab677913c"
+                },
+                "updated_at": {
+                  "type": "string",
+                  "example": "2024-01-21T17:56:16.735Z"
+                },
+                "created_at": {
+                  "type": "string",
+                  "example": "2024-01-21T17:56:16.735Z"
+                }
+              }
+            }
+          }
+        },
+        "xml": {
+          "name": "ListProducts"
+        }
+      },
+      "GetProduct": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "3f6cae85-0498-4b3b-a733-d0dba0a050b6"
+          },
+          "name": {
+            "type": "string",
+            "example": "produto 1705860066"
+          },
+          "description": {
+            "type": "string",
+            "example": "Descrição de teste."
+          },
+          "price": {
+            "type": "number",
+            "example": 100000
+          },
+          "category_id": {
+            "type": "string",
+            "example": "e8488168-89b9-4d60-a4dd-bfaab677913c"
+          },
+          "updated_at": {
+            "type": "string",
+            "example": "2024-01-21T18:01:06.315Z"
+          },
+          "created_at": {
+            "type": "string",
+            "example": "2024-01-21T18:01:06.315Z"
+          }
+        },
+        "xml": {
+          "name": "GetProduct"
+        }
+      },
+      "CreateProduct": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "produto 1705860066"
+          },
+          "description": {
+            "type": "string",
+            "example": "Descrição de teste."
+          },
+          "price": {
+            "type": "number",
+            "example": 100000
+          },
+          "category_id": {
+            "type": "string",
+            "example": "e8488168-89b9-4d60-a4dd-bfaab677913c"
+          }
+        },
+        "xml": {
+          "name": "CreateProduct"
+        }
+      },
+      "GetProductInstallment": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "a73c7f56-4b0a-46d8-9b34-c4d2fac85c39"
+          },
+          "name": {
+            "type": "string",
+            "example": "produto 1705859613"
+          },
+          "description": {
+            "type": "string",
+            "example": "Descrição de teste."
+          },
+          "price": {
+            "type": "number",
+            "example": 100
+          },
+          "category_id": {
+            "type": "string",
+            "example": "e8488168-89b9-4d60-a4dd-bfaab677913c"
+          },
+          "updated_at": {
+            "type": "string",
+            "example": "2024-01-21T17:53:33.471Z"
+          },
+          "created_at": {
+            "type": "string",
+            "example": "2024-01-21T17:53:33.471Z"
+          },
+          "installment": {
+            "type": "number",
+            "example": 50.88
+          }
+        },
+        "xml": {
+          "name": "GetProductInstallment"
+        }
+      },
+      "GetCategory": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "beb60705-429c-44b3-aab0-dbce2d4fc99d"
+          },
+          "name": {
+            "type": "string",
+            "example": "categotia 1705862517"
+          },
+          "percentage": {
+            "type": "number",
+            "example": 0.1
+          },
+          "updated_at": {
+            "type": "string",
+            "example": "2024-01-21T18:41:57.543Z"
+          },
+          "created_at": {
+            "type": "string",
+            "example": "2024-01-21T18:41:57.543Z"
+          }
+        },
+        "xml": {
+          "name": "GetCategory"
+        }
+      },
+      "CreateCategory": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "categotia 1705862517"
+          },
+          "percentage": {
+            "type": "number",
+            "example": 0.1
+          }
+        },
+        "xml": {
+          "name": "CreateCategory"
+        }
+      },
+      "ListCategories": {
+        "type": "object",
+        "properties": {
+          "total_pages": {
+            "type": "number",
+            "example": 1
+          },
+          "total": {
+            "type": "number",
+            "example": 3
+          },
+          "page_size": {
+            "type": "number",
+            "example": 5
+          },
+          "page": {
+            "type": "number",
+            "example": 1
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "example": "beb60705-429c-44b3-aab0-dbce2d4fc99d"
+                },
+                "name": {
+                  "type": "string",
+                  "example": "categotia 1705862"
+                },
+                "percentage": {
+                  "type": "number",
+                  "example": 0.1
+                },
+                "updated_at": {
+                  "type": "string",
+                  "example": "2024-01-21T18:41:57.543Z"
+                },
+                "created_at": {
+                  "type": "string",
+                  "example": "2024-01-21T18:41:57.543Z"
+                }
+              }
+            }
+          }
+        },
+        "xml": {
+          "name": "ListCategories"
+        }
+      }
+    }
+  }
+}

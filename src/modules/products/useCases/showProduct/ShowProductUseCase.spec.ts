@@ -10,7 +10,7 @@ import { ShowProductUseCase } from './ShowProductUseCase'
 import { AppError } from '@shared/errors/AppError'
 
 const product_payload = { description: 'product_description', name: 'product_name', price: 10 }
-const category_payload = { name: 'category_name' }
+const category_payload = { name: 'category_name', percentage: 0.1 }
 
 let categoryRepository: ICategoriesRepository
 let showProductUseCase: ShowProductUseCase

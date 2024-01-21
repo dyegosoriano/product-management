@@ -6,16 +6,16 @@ import { ICategoriesRepository } from '@modules/categories/domains/repositories/
 import { ListCategoriesUseCase } from './ListCategoriesUseCase'
 
 const categories = [
-  { name: 'sportive articles' },
-  { name: 'beauty products' },
-  { name: 'electronics' },
-  { name: 'gardening' },
-  { name: 'furniture' },
-  { name: 'clothing' },
-  { name: 'foods' },
-  { name: 'books' },
-  { name: 'boots' },
-  { name: 'toys' }
+  { percentage: 0.1, name: 'sportive articles' },
+  { percentage: 0.1, name: 'beauty products' },
+  { percentage: 0.1, name: 'electronics' },
+  { percentage: 0.1, name: 'gardening' },
+  { percentage: 0.1, name: 'furniture' },
+  { percentage: 0.1, name: 'clothing' },
+  { percentage: 0.1, name: 'foods' },
+  { percentage: 0.1, name: 'books' },
+  { percentage: 0.1, name: 'boots' },
+  { percentage: 0.1, name: 'toys' }
 ]
 
 let listCategoriesUseCase: ListCategoriesUseCase

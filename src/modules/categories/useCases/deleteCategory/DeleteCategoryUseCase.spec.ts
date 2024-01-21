@@ -17,7 +17,7 @@ describe('DeleteCategoryUseCase', () => {
 
     deleteCategoryUseCase = new DeleteCategoryUseCase(categoryRepository)
 
-    category = await categoryRepository.create({ name: 'category_name' })
+    category = await categoryRepository.create({ name: 'category_name', percentage: 0.1 })
   })
 
   it('should return an error if an invalid uuid is entered', async () => {

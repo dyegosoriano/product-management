@@ -17,7 +17,7 @@ describe('UpdateCategoryUseCase', () => {
 
     updateCategoryUseCase = new UpdateCategoryUseCase(categoryRepository)
 
-    category = await categoryRepository.create({ name: 'category_name' })
+    category = await categoryRepository.create({ name: 'category_name', percentage: 0.1 })
   })
 
   it('the category must contain a minimum of 3 letters and a maximum of 30', async () => {

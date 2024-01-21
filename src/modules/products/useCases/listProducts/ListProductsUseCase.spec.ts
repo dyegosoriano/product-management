@@ -33,7 +33,7 @@ describe('ListProductsUseCase', () => {
 
     listProductsUseCase = new ListProductsUseCase(productRepository)
 
-    category = await categoryRepository.create({ name: 'all' })
+    category = await categoryRepository.create({ name: 'all', percentage: 0.1 })
 
     for await (const product of products) {
       await productRepository.create({ ...product, category_id: category.id })

@@ -11,7 +11,7 @@ import { UpdateProductUseCase } from './UpdateProductUseCase'
 import { AppError } from '@shared/errors/AppError'
 
 const payload_product = { description: 'description updated', name: 'name updated', price: 10 }
-const payload_category = { name: 'category_name' }
+const payload_category = { name: 'category_name', percentage: 0.1 }
 
 let updateProductUseCase: UpdateProductUseCase
 let categoryRepository: ICategoriesRepository

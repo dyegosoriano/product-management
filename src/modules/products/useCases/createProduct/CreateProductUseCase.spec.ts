@@ -8,7 +8,7 @@ import { CreateProductUseCase } from './CreateProductUseCase'
 import { AppError } from '@shared/errors/AppError'
 import { ZodError } from 'zod'
 
-const category_payload = { name: 'category_name' }
+const category_payload = { name: 'category_name', percentage: 0.1 }
 const product_payload = {
   category_id: 'cc9c8edf-d252-453f-b362-ae75ce1dc9cb',
   description: 'product_description',

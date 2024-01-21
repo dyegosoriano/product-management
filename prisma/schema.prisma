@@ -29,7 +29,7 @@ model Products {
 
   name        String
   description String
-  price       BigInt
+  price       Int
 
   category_id String
 

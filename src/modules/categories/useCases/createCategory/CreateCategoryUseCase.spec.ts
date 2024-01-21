@@ -6,7 +6,7 @@ import { ICategoriesRepository } from '@modules/categories/domains/repositories/
 import { CreateCategoryUseCase } from './CreateCategoryUseCase'
 import { AppError } from '@shared/errors/AppError'
 
-const category_payload = { name: 'category_name' }
+const category_payload = { name: 'category_name', percentage: 0.1 }
 
 let createCategoryUseCase: CreateCategoryUseCase
 let categoryRepository: ICategoriesRepository
@@ -31,9 +31,10 @@ describe('CreateCategoryUseCase', () => {
   })
 
   it('the category must contain a minimum of 3 letters and a maximum of 30', async () => {
-    await expect(createCategoryUseCase.execute({ name: '01' })).rejects.toThrow(ZodError)
-    await expect(createCategoryUseCase.execute({ name: '0123456789 ABCDEFGHIJKLMNOPQRSTUVZWYZ' })).rejects.toThrow(
-      ZodError
-    )
+    await expect(createCategoryUseCase.execute({ percentage: 0.1, name: '01' })).rejects.toThrow(ZodError)
+
+    await expect(
+      createCategoryUseCase.execute({ percentage: 0.1, name: '0123456789 ABCDEFGHIJKLMNOPQRSTUVZWYZ' })
+    ).rejects.toThrow(ZodError)
   })
 })

@@ -13,7 +13,8 @@ datasource db {
 model Categories {
   id String @id @unique
 
-  name String @unique
+  name       String @unique
+  percentage Float
 
   updated_at DateTime
   created_at DateTime
@@ -28,7 +29,7 @@ model Products {
 
   name        String
   description String
-  price       Int
+  price       BigInt
 
   category_id String
 
